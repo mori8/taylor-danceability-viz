@@ -26,9 +26,9 @@ export default function DumbbellPlot() {
   d3.select(svgRef.current).selectAll("*").remove();
 
   // SVG 설정
-  const margin = { top: 40, right: 50, bottom: 40, left: 150 };
+  const margin = { top: 0, right: 50, bottom: 20, left: 150 };
   const width = 800 - margin.left - margin.right;
-  const height = 500 - margin.top - margin.bottom;
+  const height = 450 - margin.top - margin.bottom;
 
   const svg = d3.select(svgRef.current)
     .attr('width', width + margin.left + margin.right)
@@ -59,9 +59,9 @@ export default function DumbbellPlot() {
     .call(g => {
      g.selectAll('.domain').remove();
      g.selectAll('.tick line')
-      .attr('stroke', 'rgba(255, 255, 255, 0.1)');
+      .attr('stroke', 'rgba(38, 33, 40, 0.1)');
      g.selectAll('.tick text')
-      .attr('fill', 'rgba(255, 255, 255, 0.6)')
+      .attr('fill', 'rgba(38, 33, 40, 0.6)')
       .attr('font-size', '12px');
     });
 
@@ -71,7 +71,7 @@ export default function DumbbellPlot() {
     .attr('x2', x(0))
     .attr('y1', 0)
     .attr('y2', height)
-    .attr('stroke', 'rgba(255, 255, 255, 0.3)')
+    .attr('stroke', 'rgba(38, 33, 40, 0.3)')
     .attr('stroke-width', 1);
 
   // 선 그리기
@@ -84,7 +84,7 @@ export default function DumbbellPlot() {
     .attr('x2', d => x(d.correlation))
     .attr('y1', d => y(d.feature))
     .attr('y2', d => y(d.feature))
-    .attr('stroke', d => d.correlation >= 0.3 ? '#522959' : '#979dab')
+    .attr('stroke', d => d.correlation >= 0.3 ? 'rgba(216, 96, 114, 1)' : '#979dab')
     .attr('stroke-width', 2)
     .attr('opacity', 0);
 
@@ -97,7 +97,7 @@ export default function DumbbellPlot() {
     .attr('cx', d => x(d.correlation))
     .attr('cy', d => y(d.feature))
     .attr('r', 8)
-    .attr('fill', d => ['Valence', 'Loudness', 'Energy'].includes(d.feature) ? '#522959' : '#979dab')
+    .attr('fill', d => ['Valence', 'Loudness', 'Energy'].includes(d.feature) ? 'rgba(216, 96, 114, 1)' : '#979dab')
     .attr('opacity', 0);
 
   // 레이블 추가
@@ -110,7 +110,7 @@ export default function DumbbellPlot() {
     .attr('y', d => y(d.feature))
     .attr('text-anchor', 'end')
     .attr('dominant-baseline', 'middle')
-    .attr('fill', d => ['Valence', 'Loudness', 'Energy'].includes(d.feature) ? 'white' : 'rgba(255, 255, 255, 0.6)')
+    .attr('fill', d => ['Valence', 'Loudness', 'Energy'].includes(d.feature) ? 'rgba(38, 33, 40, 1)' : 'rgba(38, 33, 40, 0.6)')
     .attr('font-weight', d => ['Valence', 'Loudness', 'Energy'].includes(d.feature) ? 'bold' : 'normal')
     .text(d => d.feature)
     .attr('opacity', 0);
@@ -125,7 +125,7 @@ export default function DumbbellPlot() {
      .attr('y', d => y(d.feature))
      .attr('dominant-baseline', 'middle')
      .attr('text-anchor', d => d.correlation < 0 ? 'end' : 'start')
-     .attr('fill', d => 'rgba(255, 255, 255, 0.6)')
+     .attr('fill', d => 'rgba(38, 33, 40, 0.8)')
      .attr('font-weight', d=> ['Valence', 'Loudness', 'Energy'].includes(d.feature) ? 'bold' : 'normal')
     .text(d => d.correlation.toFixed(2))
     .attr('opacity', 0);
@@ -192,7 +192,7 @@ export default function DumbbellPlot() {
  }, []);
 
  return (
-   <div className="relative w-full max-w-5xl mx-auto bg-gray-900 rounded-xl p-6">
+   <div className="relative w-full max-w-5xl mx-auto">
      <svg ref={svgRef} className="w-full" />
    </div>
  );
