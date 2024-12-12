@@ -13,8 +13,8 @@ export default function DanceabilityCorrelationSection() {
           whileInView={{ opacity: 1, y: 0 }}
           className="mx-auto"
         >
-          <div className="w-3/5 mx-auto flex flex-col items-end mb-14">
-            <p className="font-display text-xl text-center">
+          <div className="w-3/5 mx-auto flex flex-col items-end mb-20">
+            <p className="font-display text-2xl text-center">
               "<b>Danceability</b> describes how suitable a track is for dancing based
               on a combination of musical elements including tempo, rhythm
               stability, beat strength, and overall regularity."
@@ -23,13 +23,13 @@ export default function DanceabilityCorrelationSection() {
           </div>
           <div className="flex flex-col lg:flex-row">
             <div className="lg:pr-8 mb-12 lg:mb-0">
-              <p className="leading-relaxed mb-8">
+              <p className="mb-8">
                 This definition might not be immediately intuitive. Most people
                 expect songs with energetic beats and loud sounds to have high
                 danceability scores - and they're <b>not</b> entirely wrong.
               </p>
 
-              <p className="leading-relaxed">
+              <p className="">
                 Analysis of{" "}
                 <a
                   href="https://www.kaggle.com/datasets/tomigelo/spotify-audio-features"
