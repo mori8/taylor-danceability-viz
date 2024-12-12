@@ -52,6 +52,7 @@ export default function ScatterPlot() {
       .select(svgRef.current)
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
+      .style("border", "none") // Remove border
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
@@ -74,23 +75,35 @@ export default function ScatterPlot() {
     const yAxis = d3.axisLeft(yScale).tickSize(-width).tickPadding(10);
 
     // 그리드라인 스타일링
+    // 선 그리기
+    svg
+      .append("line")
+      .attr("x1", xScale(0.55))
+      .attr("y1", yScale(0))
+      .attr("x2", xScale(0.82))
+      .attr("y2", yScale(200))
+      .attr("stroke", "rgba(214, 220, 130, 1)")
+      .attr("opacity", 0.8)
+      .attr("stroke-dasharray", "5")
+      .attr("stroke-width", 2);
+    
     svg
       .append("g")
       .attr("transform", `translate(0,${height})`)
       .call(xAxis)
       .attr("class", "grid")
       .selectAll("line")
-      .attr("stroke", "rgba(38, 33, 40, 0.2)");
+      .attr("stroke", "rgba(38, 33, 40, 0.13)");
 
     svg
       .append("g")
       .call(yAxis)
       .attr("class", "grid")
       .selectAll("line")
-      .attr("stroke", "rgba(38, 33, 40, 0.2)");
+      .attr("stroke", "rgba(38, 33, 40, 0.13)");
 
     // 축 레이블 스타일링
-    svg.selectAll(".grid path").attr("stroke", "rgba(38, 33, 40, 0.5)");
+    svg.selectAll(".grid path").attr("stroke", "rgba(255, 246, 238, 0)").attr("stroke-width", 1).attr("stroke-alignment", "inner");
 
     svg
       .selectAll(".grid text")
@@ -149,9 +162,7 @@ export default function ScatterPlot() {
           .html(
             `
             <div class="flex items-center gap-3 min-w-[300px] z-50">
-              <img src="${d.album_cover}" alt="${
-              d.album
-            }" class="w-16 h-16" />
+              <img src="${d.album_cover}" alt="${d.album}" class="w-16 h-16" />
               <div>
                 <p class="text-obsidian font-bold">${d.title}</p>
                 <p class="text-slate-400 text-sm">${d.album}</p>
@@ -159,7 +170,9 @@ export default function ScatterPlot() {
                   3
                 )}</p>
                 <p class="text-cherry text-sm">Peak Rank: ${d.peak_rank}</p>
-                <p class="text-cherry text-sm">Average Rank: ${d.average_rank}</p>
+                <p class="text-cherry text-sm">Average Rank: ${
+                  d.average_rank
+                }</p>
               </div>
             </div>
           `
@@ -196,6 +209,21 @@ export default function ScatterPlot() {
 
         tooltip.style("visibility", "hidden"); // 툴팁 숨김 처리
       });
+
+    // 노래 제목 추가
+    svg
+      .selectAll("text.song-title")
+      .data(data)
+      .enter()
+      .append("text")
+      .attr("class", "song-title")
+      .attr("opacity", 0.5)
+      .attr("x", (d) => xScale(d.danceability) - 10) // Adjust the x position to the left of the circle
+      .attr("y", (d) => yScale(d.peak_rank) + 4) // Adjust the y position to vertically center the text
+      .attr("text-anchor", "end") // Align text to the end (right)
+      .attr("fill", "black")
+      .style("font-size", "10px")
+      .text((d) => d.title);
 
     // 축 레이블 추가
     svg
