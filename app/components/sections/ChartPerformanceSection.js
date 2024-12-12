@@ -7,7 +7,7 @@ import ScatterPlot from '../ui/ScatterPlot';
 const data = [
   {
     title: "Shake It Off",
-    album_cover: "http://example.com/shake-it-off.jpg",
+    album_cover: "https://upload.wikimedia.org/wikipedia/en/c/c4/Taylor_Swift_-_Shake_It_Off.png",
     album: "1989",
     danceability: 0.647,
     peak_rank: 1,

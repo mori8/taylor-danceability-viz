@@ -29,14 +29,12 @@ export default function OpeningSection() {
         </motion.h1>
         
         <motion.p 
-          className="text-xl max-w-2xl text-center"
+          className="text-base max-w-3xl text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          'danceability'는 스포티파이에서 제공하는 음악 특성 중 하나입니다.
-          If you're like most people, you probably think of upbeat tempos, energetic rhythms, and catchy melodies that make you want to move.
-          테일러 스위프트의 투어 기간 중 스포티파이에 재진입한 곡들을 분석하며, 'danceability'가 실제로 무엇을 의미하는지 알아보자.
+          <b>Danceability</b> is one of Spotify's audio features, describing how suitable a track is for dancing. If you're like most people, you probably think of upbeat tempos, energetic rhythms, and catchy melodies that make you want to bust a move. Generally, it does.<br/><br/> But are these truly the elements that determine danceability? Here's an example that defies common intuition. Currently, <b>Taylor Swift's electrifying Eras Tour</b> is captivating audiences worldwide, making people want to dance. By analyzing the songs that re-entered the charts during Taylor Swift's The Eras Tour, let's uncover what danceability truly means—and why some of Taylor’s hits might not be as danceable as they appear.
         </motion.p>
       </div>
     </section>
