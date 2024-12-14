@@ -1,17 +1,15 @@
-// components/ui/ScatterPlot.js
 "use client";
 
 import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 
-export default function ScatterPlot() {
+export default function ScatterPlot({ highlightedSongs = [] }) {
   const svgRef = useRef(null);
-  const tooltipRef = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [data, setData] = useState(null);
+  const [playingSong, setPlayingSong] = useState(null);
 
   useEffect(() => {
-    // Fetch CSV data from /public directory
     d3.csv("/chart_performance.csv").then((rawData) => {
       const processedData = rawData.map((d) => ({
         title: d.name,
@@ -20,6 +18,7 @@ export default function ScatterPlot() {
         danceability: parseFloat(d.danceability),
         peak_rank: parseInt(d.peak_rank, 10),
         average_rank: parseInt(d.average_rank, 10),
+        audio: new Audio(`/audio/${d.name}.mp3`), // assuming the audio files are named after the song titles
       }));
       setData(processedData);
     });
@@ -45,48 +44,22 @@ export default function ScatterPlot() {
     const width = dimensions.width - margin.left - margin.right;
     const height = dimensions.height - margin.top - margin.bottom;
 
-    // SVG 초기화
     d3.select(svgRef.current).selectAll("*").remove();
 
     const svg = d3
       .select(svgRef.current)
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
-      .style("border", "none") // Remove border
+      .style("border", "none")
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // 스케일 설정
-    const xScale = d3
-      .scaleLinear()
-      .domain([0.3, 1]) // danceability는 0.3-1 사이
-      .range([0, width])
-      .nice();
+    const xScale = d3.scaleLinear().domain([0.3, 1]).range([0, width]).nice();
+    const yScale = d3.scaleLinear().domain([200, 1]).range([height, 0]).nice();
 
-    const yScale = d3
-      .scaleLinear()
-      .domain([200, 1]) // rank는 1이 최상위
-      .range([height, 0])
-      .nice();
-
-    // 축 설정
     const xAxis = d3.axisBottom(xScale).tickSize(-height).tickPadding(10);
-
     const yAxis = d3.axisLeft(yScale).tickSize(-width).tickPadding(10);
 
-    // 그리드라인 스타일링
-    // 선 그리기
-    svg
-      .append("line")
-      .attr("x1", xScale(0.55))
-      .attr("y1", yScale(0))
-      .attr("x2", xScale(0.82))
-      .attr("y2", yScale(200))
-      .attr("stroke", "rgba(214, 220, 130, 1)")
-      .attr("opacity", 0.8)
-      .attr("stroke-dasharray", "5")
-      .attr("stroke-width", 2);
-    
     svg
       .append("g")
       .attr("transform", `translate(0,${height})`)
@@ -102,29 +75,28 @@ export default function ScatterPlot() {
       .selectAll("line")
       .attr("stroke", "rgba(38, 33, 40, 0.13)");
 
-    // 축 레이블 스타일링
-    svg.selectAll(".grid path").attr("stroke", "rgba(255, 246, 238, 0)").attr("stroke-width", 1).attr("stroke-alignment", "inner");
+    svg
+      .selectAll(".grid path")
+      .attr("stroke", "rgba(255, 246, 238, 0)")
+      .attr("stroke-width", 1);
 
     svg
       .selectAll(".grid text")
       .attr("fill", "rgba(38, 33, 40, 0.6)")
       .style("font-size", "12px");
 
-    // 툴팁 설정
-    const tooltip = d3
-      .select(tooltipRef.current)
-      .style("position", "absolute") // absolute 대신 fixed 사용
-      .style("visibility", "hidden")
-      .style("background-color", "rgba(255, 255, 255, 0.9)")
-      .style("border-radius", "8px")
-      .style("padding", "12px")
-      .style("color", "black") // 텍스트 색상 추가
-      .style("pointer-events", "none") // 툴팁이 마우스 이벤트를 방해하지 않도록
-      .style("box-shadow", "0 4px 6px rgba(0, 0, 0, 0.1)")
-      .style("z-index", "9999"); // z-index 높임
-
-    // 데이터 포인트 그리기
     svg
+      .append("line")
+      .attr("x1", xScale(0.55))
+      .attr("y1", yScale(0))
+      .attr("x2", xScale(0.82))
+      .attr("y2", yScale(200))
+      .attr("stroke", "rgba(214, 220, 130, 1)")
+      .attr("opacity", 0.8)
+      .attr("stroke-dasharray", "5")
+      .attr("stroke-width", 2);
+
+    const circles = svg
       .selectAll("circle")
       .data(data)
       .enter()
@@ -133,99 +105,90 @@ export default function ScatterPlot() {
       .attr("cy", (d) => yScale(d.peak_rank))
       .attr("r", 8)
       .attr("fill", "#d86072")
-      .attr("opacity", 0.8)
-      .style("cursor", "pointer")
-      .on("mouseover", function (event, d) {
-        d3.select(this)
-          .transition()
-          .duration(200)
-          .attr("r", 12)
-          .attr("opacity", 1);
+      .attr("opacity", highlightedSongs.length > 0 ? 0.3 : 0.7)
+      .style("cursor", (d) =>
+        highlightedSongs.includes(d.title) ? "pointer" : "default"
+      )
+      .style("transition", "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)");
 
-        const [mouseX, mouseY] = d3.pointer(event, svgRef.current); // SVG 내 좌표 계산
-        const tooltipWidth = tooltip.node().offsetWidth;
-        const tooltipHeight = tooltip.node().offsetHeight;
-        const padding = 10;
-
-        let left = mouseX + padding;
-        let top = mouseY - padding;
-
-        // 화면 경계를 넘어가지 않도록 조정
-        if (left + tooltipWidth > dimensions.width) {
-          left = dimensions.width - tooltipWidth - padding;
-        }
-        if (top < tooltipHeight) {
-          top = tooltipHeight + padding;
-        }
-
-        tooltip
-          .html(
-            `
-            <div class="flex items-center gap-3 min-w-[300px] z-50">
-              <img src="${d.album_cover}" alt="${d.album}" class="w-16 h-16" />
-              <div>
-                <p class="text-obsidian font-bold">${d.title}</p>
-                <p class="text-slate-400 text-sm">${d.album}</p>
-                <p class="text-cherry text-sm">Danceability: ${d.danceability.toFixed(
-                  3
-                )}</p>
-                <p class="text-cherry text-sm">Peak Rank: ${d.peak_rank}</p>
-                <p class="text-cherry text-sm">Average Rank: ${
-                  d.average_rank
-                }</p>
-              </div>
-            </div>
-          `
-          )
-          .style("visibility", "visible")
-          .style("left", `${left}px`)
-          .style("top", `${top}px`);
-      })
-      .on("mousemove", function (event) {
-        const [mouseX, mouseY] = d3.pointer(event, svgRef.current); // SVG 내 좌표 계산
-        const tooltipWidth = tooltip.node().offsetWidth;
-        const tooltipHeight = tooltip.node().offsetHeight;
-        const padding = 10;
-
-        let left = mouseX + padding;
-        let top = mouseY - padding;
-
-        // 화면 경계를 넘어가지 않도록 조정
-        if (left + tooltipWidth > dimensions.width) {
-          left = dimensions.width - tooltipWidth - padding;
-        }
-        if (top < tooltipHeight) {
-          top = tooltipHeight + padding;
-        }
-
-        tooltip.style("left", `${left}px`).style("top", `${top}px`);
-      })
-      .on("mouseout", function () {
-        d3.select(this)
-          .transition()
-          .duration(200)
-          .attr("r", 8)
-          .attr("opacity", 0.7);
-
-        tooltip.style("visibility", "hidden"); // 툴팁 숨김 처리
-      });
-
-    // 노래 제목 추가
     svg
       .selectAll("text.song-title")
       .data(data)
       .enter()
       .append("text")
       .attr("class", "song-title")
-      .attr("opacity", 0.5)
-      .attr("x", (d) => xScale(d.danceability) - 10) // Adjust the x position to the left of the circle
-      .attr("y", (d) => yScale(d.peak_rank) + 4) // Adjust the y position to vertically center the text
-      .attr("text-anchor", "end") // Align text to the end (right)
+      .attr("opacity", (d) => {
+      if (highlightedSongs.length === 0) return 0.5;
+      return highlightedSongs.includes(d.title) ? 0.8 : 0.3;
+      })
+      .attr("x", (d) => xScale(d.danceability) - 16)
+      .attr("y", (d) => yScale(d.peak_rank) + 4)
+      .attr("text-anchor", "end")
       .attr("fill", "black")
       .style("font-size", "10px")
+      .style("transition", "opacity 0.5s ease")
+      .style("font-weight", (d) => (highlightedSongs.includes(d.title) ? "bold" : "normal"))
       .text((d) => d.title);
 
-    // 축 레이블 추가
+    circles.each(function (d) {
+      const circle = d3.select(this);
+      if (highlightedSongs.length === 0) {
+        circle
+          .transition()
+          .duration(800)
+          .ease(d3.easeCubicOut)
+          .attr("r", 8)
+          .attr("opacity", 0.7)
+          .attr("stroke", "none")
+          .attr("stroke-width", 0);
+      } else if (highlightedSongs.includes(d.title)) {
+        circle
+          .transition()
+          .duration(800)
+          .ease(d3.easeCubicOut)
+          .attr("r", 16)
+          .attr("opacity", 1)
+          .attr("stroke", "rgba(216, 96, 114, 0.4)")
+          .attr("stroke-width", 4);
+
+        // Add play/pause button
+        svg
+          .append("text")
+          .attr("class", "play-pause-button")
+          .attr("x", xScale(d.danceability) + 1)
+          .attr("y", yScale(d.peak_rank) + 2)
+          .attr("text-anchor", "middle")
+          .attr("alignment-baseline", "middle")
+          .attr("transform", "translate(-50%, -50%)")
+          .attr("fill", "white")
+          .style("font-size", "16px")
+          .style("cursor", "pointer")
+          .text(() => (playingSong?.title === d.title ? "⏸" : "▶"))
+          .on("click", function () {
+            if (playingSong && playingSong.title === d.title) {
+              playingSong.audio.pause();
+              setPlayingSong(null);
+            } else {
+              if (playingSong) {
+                playingSong.audio.pause();
+              }
+              d.audio.play();
+              setPlayingSong(d);
+              d3.select(this).text("⏸");
+            }
+          });
+      } else {
+        circle
+          .transition()
+          .duration(800)
+          .ease(d3.easeCubicOut)
+          .attr("r", 8)
+          .attr("opacity", 0.3)
+          .attr("stroke", "none")
+          .attr("stroke-width", 0);
+      }
+    });
+
     svg
       .append("text")
       .attr("x", width / 2)
@@ -242,12 +205,11 @@ export default function ScatterPlot() {
       .attr("text-anchor", "middle")
       .attr("fill", "black")
       .text("Peak Chart Position");
-  }, [data, dimensions]);
+  }, [data, dimensions, highlightedSongs, playingSong]);
 
   return (
     <div className="relative w-full h-full rounded-lg p-4">
       <svg ref={svgRef} className="w-full h-full" />
-      <div ref={tooltipRef} className="tooltip" />
     </div>
   );
 }
