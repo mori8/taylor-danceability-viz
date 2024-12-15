@@ -1,0 +1,44 @@
+id,re_entered,album,track_number,id,name,uri,acousticness,danceability,energy,instrumentalness,liveness,loudness,speechiness,tempo,valence,popularity
+0,false,Lover,7,214nt20w5wOxJnY462klLw,Miss Americana & The Heartbreak Prince,spotify:track:214nt20w5wOxJnY462klLw,0.028,0.662,0.747,0.00615,0.138,-6.926,0.0736,150.088,0.487,83
+1,true,Lover,2,1BxfuPKGuaTgP7aM0Bbdwr,Cruel Summer,spotify:track:1BxfuPKGuaTgP7aM0Bbdwr,0.117,0.552,0.702,2.06e-05,0.105,-5.707,0.157,169.994,0.564,99
+2,true,Lover,4,3RauEVgRgj1IuWdJ9fDs70,The Man,spotify:track:3RauEVgRgj1IuWdJ9fDs70,0.0767,0.777,0.658,0.0,0.0901,-5.191,0.054,110.048,0.633,86
+3,true,Lover,3,1dGr1c8CrMLDpV6mPbImSI,Lover,spotify:track:1dGr1c8CrMLDpV6mPbImSI,0.492,0.359,0.543,1.58e-05,0.118,-7.582,0.0919,68.534,0.453,91
+4,false,Lover,14,6RRNNciQGZEXnqk8SQ9yv5,You Need To Calm Down,spotify:track:6RRNNciQGZEXnqk8SQ9yv5,0.00929,0.771,0.671,0.0,0.0637,-5.617,0.0553,85.026,0.714,83
+5,false,Lover,5,3pHkh7d0lzM2AldUtz2x37,The Archer,spotify:track:3pHkh7d0lzM2AldUtz2x37,0.12,0.292,0.574,0.00569,0.0663,-9.375,0.0401,124.344,0.166,82
+6,false,Fearless (Taylor's Version),1,77sMIMlNaSURUAXq5coCxE,Fearless (Taylor’s Version),spotify:track:77sMIMlNaSURUAXq5coCxE,0.0122,0.569,0.741,0.0,0.333,-4.963,0.0282,100.118,0.43,85
+7,true,Fearless (Taylor's Version),6,1qrpoAMXodY6895hGKoUpA,You Belong With Me (Taylor’s Version),spotify:track:1qrpoAMXodY6895hGKoUpA,0.0623,0.632,0.773,0.0,0.0885,-4.856,0.0346,130.033,0.474,86
+8,true,Fearless (Taylor's Version),3,6YvqWjhGD8mB5QXcbcUKtx,Love Story (Taylor’s Version),spotify:track:6YvqWjhGD8mB5QXcbcUKtx,0.13,0.627,0.792,3.97e-06,0.0845,-4.311,0.031,119.054,0.415,82
+9,false,evermore (deluxe version),4,6sQckd3Z8NPxVVKUnavY1F,‘tis the damn season,spotify:track:6sQckd3Z8NPxVVKUnavY1F,0.735,0.575,0.434,6.59e-05,0.105,-8.193,0.0312,145.916,0.348,73
+10,false,evermore (deluxe version),1,2gVhfX2Gy1T9kDuS9azrF7,willow,spotify:track:2gVhfX2Gy1T9kDuS9azrF7,0.833,0.392,0.574,0.00179,0.145,-9.195,0.17,81.112,0.529,74
+11,false,evermore (deluxe version),13,5uICWmZTLkpEVbK22PBP6e,marjorie,spotify:track:5uICWmZTLkpEVbK22PBP6e,0.876,0.535,0.561,0.000136,0.115,-11.609,0.0484,96.103,0.287,70
+12,false,evermore (deluxe version),2,1gcyHQpBQ1lfXGdhZmWrHP,champagne problems,spotify:track:1gcyHQpBQ1lfXGdhZmWrHP,0.92,0.462,0.24,0.0,0.113,-12.077,0.0377,171.319,0.32,75
+13,false,evermore (deluxe version),5,6lCvK2AR2uOKkVFCVlAzzm,tolerate it,spotify:track:6lCvK2AR2uOKkVFCVlAzzm,0.878,0.316,0.361,2.67e-05,0.0797,-10.381,0.0488,74.952,0.221,73
+14,false,reputation,1,2yLa0QULdQr0qAIvVwN6B5,...Ready For It?,spotify:track:2yLa0QULdQr0qAIvVwN6B5,0.0527,0.613,0.764,0.0,0.197,-6.509,0.136,160.015,0.417,84
+15,false,reputation,5,6NFyWDv5CjfwuzoCkw47Xf,Delicate,spotify:track:6NFyWDv5CjfwuzoCkw47Xf,0.216,0.75,0.404,0.000357,0.0911,-10.178,0.0682,95.045,0.0499,87
+16,true,reputation,4,1R0a2iXumgCiFb7HEZ7gUE,Don’t Blame Me,spotify:track:1R0a2iXumgCiFb7HEZ7gUE,0.106,0.615,0.534,1.76e-05,0.0607,-6.719,0.0386,135.917,0.193,91
+17,false,reputation,6,1P17dC1amhFzptugyAO7Il,Look What You Made Me Do,spotify:track:1P17dC1amhFzptugyAO7Il,0.204,0.766,0.709,1.41e-05,0.126,-6.471,0.123,128.07,0.506,86
+18,true,Speak Now (Taylor's Version),9,3sW3oSbzsfecv9XoUdGs7h,Enchanted (Taylor's Version),spotify:track:3sW3oSbzsfecv9XoUdGs7h,0.012,0.505,0.532,0.0,0.149,-3.526,0.0265,81.907,0.216,87
+19,true,Speak Now (Taylor's Version),14,4hqJ4bSlYJOXb6Z4SRmzxs,Long Live (Taylor's Version),spotify:track:4hqJ4bSlYJOXb6Z4SRmzxs,0.0122,0.375,0.65,0.0,0.189,-4.031,0.0402,203.89,0.0752,82
+20,false,Red (Taylor's Version),6,3yII7UwgLF6K5zW3xad3MP,22 (Taylor's Version),spotify:track:3yII7UwgLF6K5zW3xad3MP,0.000443,0.642,0.695,1.02e-05,0.0753,-5.62,0.0281,103.984,0.642,79
+21,false,Red (Taylor's Version),8,5YqltLsjdqFtvqE7Nrysvs,We Are Never Ever Getting Back Together (Taylor's Version),spotify:track:5YqltLsjdqFtvqE7Nrysvs,0.0317,0.567,0.686,1.86e-06,0.0732,-6.139,0.175,172.014,0.716,81
+22,false,Red (Taylor's Version),4,6AtZLIzUINvExIUy4QhdjP,I Knew You Were Trouble (Taylor's Version),spotify:track:6AtZLIzUINvExIUy4QhdjP,0.0129,0.584,0.557,0.0,0.0576,-6.371,0.0342,154.008,0.767,80
+23,false,Red (Taylor's Version),5,3nsfB1vus2qaloUdcBZvDu,All Too Well (Taylor's Version),spotify:track:3nsfB1vus2qaloUdcBZvDu,0.0171,0.44,0.528,0.00203,0.234,-7.809,0.0317,185.972,0.132,78
+24,false,folklore (deluxe version),1,4pfrrhvplbJZAIsfosGWQP,the 1,spotify:track:4pfrrhvplbJZAIsfosGWQP,0.75,0.78,0.361,7.14e-06,0.108,-6.942,0.048,139.902,0.163,74
+25,false,folklore (deluxe version),14,3IhtE4fkytdrtEfV34UzkD,betty,spotify:track:3IhtE4fkytdrtEfV34UzkD,0.589,0.595,0.376,0.0,0.0989,-8.767,0.0256,95.946,0.476,71
+26,false,folklore (deluxe version),3,2olxzvoFI9IpxqFeUv7WOX,the last great american dynasty,spotify:track:2olxzvoFI9IpxqFeUv7WOX,0.481,0.688,0.653,0.00414,0.106,-8.558,0.0403,147.991,0.701,73
+27,true,folklore (deluxe version),8,6nK2pIKFcRc5frrZKHgsiT,august,spotify:track:6nK2pIKFcRc5frrZKHgsiT,0.553,0.387,0.634,6.93e-05,0.0931,-9.222,0.0363,89.567,0.42,74
+28,false,folklore (deluxe version),10,6DrLROM5MG9bxWHeEG5elq,illicit affairs,spotify:track:6DrLROM5MG9bxWHeEG5elq,0.862,0.529,0.304,0.0,0.108,-10.567,0.0356,119.58,0.44,73
+29,false,folklore (deluxe version),5,5P2bHCDM2tsgIaYWsZMhu5,my tears ricochet,spotify:track:5P2bHCDM2tsgIaYWsZMhu5,0.814,0.456,0.265,0.0,0.0679,-10.663,0.0328,129.947,0.112,74
+30,true,folklore (deluxe version),2,0KRYCBwIpWYFNrXOmXbyUh,cardigan,spotify:track:0KRYCBwIpWYFNrXOmXbyUh,0.525,0.612,0.58,0.000414,0.26,-8.572,0.0419,130.045,0.534,75
+31,true,1989 (Deluxe Edition),3,1fo2ctLqj3zBhRQKOXprol,Style,spotify:track:1fo2ctLqj3zBhRQKOXprol,0.00245,0.588,0.791,0.00258,0.118,-5.595,0.0402,94.933,0.487,71
+32,true,1989 (Deluxe Edition),2,2sC2P3BN0IXujNaaSyDmtP,Blank Space,spotify:track:2sC2P3BN0IXujNaaSyDmtP,0.103,0.76,0.703,0.0,0.0913,-5.412,0.054,95.997,0.57,68
+33,true,1989 (Deluxe Edition),6,3fthfkkvy9av3q3uAGVf7U,Shake It Off,spotify:track:3fthfkkvy9av3q3uAGVf7U,0.0647,0.647,0.8,0.0,0.334,-5.384,0.165,160.078,0.942,66
+34,false,1989 (Deluxe Edition),9,106R7Z57WYzBAfrXImV30y,Wildest Dreams,spotify:track:106R7Z57WYzBAfrXImV30y,0.0692,0.55,0.688,0.00144,0.106,-7.416,0.0897,139.997,0.465,64
+35,false,1989 (Deluxe Edition),8,0yN4fNzmVnmgC0dsOoi9Wh,Bad Blood,spotify:track:0yN4fNzmVnmgC0dsOoi9Wh,0.0885,0.646,0.794,6.16e-06,0.201,-6.104,0.19,170.216,0.287,65
+36,false,Midnights,1,24emu3sabKISjRkrys28jq,Lavender Haze,spotify:track:24emu3sabKISjRkrys28jq,0.236,0.735,0.454,0.00113,0.133,-10.516,0.0876,97.043,0.0751,69
+37,false,Midnights,3,5qIHFdkW6phMsTZlN2g8Lc,Anti-Hero,spotify:track:5qIHFdkW6phMsTZlN2g8Lc,0.115,0.637,0.649,1.22e-06,0.147,-6.59,0.0584,96.935,0.497,69
+38,true,Midnights,6,4eKMqf9ZMSclDX7V9Ptg7x,Midnight Rain,spotify:track:4eKMqf9ZMSclDX7V9Ptg7x,0.705,0.654,0.372,6.78e-05,0.114,-11.704,0.0667,140.15,0.198,69
+39,true,Midnights,8,0GKDhq6ZbmSbRHd3eyGlB7,Vigilante Shit,spotify:track:0GKDhq6ZbmSbRHd3eyGlB7,0.157,0.867,0.272,3.42e-05,0.118,-11.014,0.363,79.962,0.157,68
+40,true,Midnights,9,0VpF6RLdCfPIeYRwMu4tZK,Bejeweled,spotify:track:0VpF6RLdCfPIeYRwMu4tZK,0.0648,0.695,0.546,0.000128,0.0883,-9.184,0.066,164.0,0.425,68
+41,false,Midnights,13,1QQii3pa5m8MEda0nbkjfw,Mastermind,spotify:track:1QQii3pa5m8MEda0nbkjfw,0.545,0.661,0.345,0.000915,0.0871,-14.037,0.144,125.977,0.126,67
+42,true,Midnights,11,45R112Jz5hQeKgITXgSXzs,Karma,spotify:track:45R112Jz5hQeKgITXgSXzs,0.0782,0.647,0.614,0.0,0.611,-7.091,0.0651,90.034,0.0956,68

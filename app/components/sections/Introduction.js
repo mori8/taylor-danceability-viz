@@ -21,7 +21,7 @@ export default function Introduction() {
   });
 
   return (
-    <section ref={ref} className="space-y-12">
+    <section ref={ref} className="max-w-5xl mx-auto px-4 py-16 space-y-12">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}

@@ -11,7 +11,7 @@ export default function CoreQuestion() {
   });
 
   return (
-    <section ref={ref} className="space-y-16 w-full">
+    <section ref={ref} className="max-w-5xl mx-auto px-4 space-y-16 w-full">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
