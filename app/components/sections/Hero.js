@@ -21,9 +21,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="font-display text-4xl md:text-6xl lg:text-7xl mb-6 text-primary"
+          className="font-display font-semibold text-4xl md:text-6xl lg:text-7xl mb-6 text-primary"
         >
-          How Taylor Swift Uses Danceability to Maintain Concert Tension?
+          How Taylor Swift Uses <span className="text-secondary">Danceability</span> to Orchestrate 200 Minutes of The Eras Tour?
         </motion.h1>
 
         <motion.div

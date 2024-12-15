@@ -1,20 +1,18 @@
-name,album,danceability,peak_rank,average_rank,album_cover
-Anti-Hero,Midnights,0.637,12,28.96,https://media.pitchfork.com/photos/63495dffa7846fb4be7fe006/master/pass/Taylor-Swift-Midnights.jpg
-Bejeweled,Midnights,0.695,103,139.21,https://media.pitchfork.com/photos/63495dffa7846fb4be7fe006/master/pass/Taylor-Swift-Midnights.jpg
-Blank Space,1989,0.76,34,76.69,https://i.scdn.co/image/ab67616d0000b273904445d70d04eb24d6bb79ac
-Cruel Summer,Lover,0.552,2,20.58,https://i.scdn.co/image/ab67616d0000b273e787cffec20aa2a396a61647
-Delicate,reputation,0.75,138,165.33,https://people.com/thmb/Il8Det7N7UvvQAojNWSQyhcnjuM=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(992x0:994x2)/taylor-swift7-2000-48f9bfb372c34e36866773b1ede0b372.jpg
-Don’t Blame Me,reputation,0.615,54,77.27,https://people.com/thmb/Il8Det7N7UvvQAojNWSQyhcnjuM=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(992x0:994x2)/taylor-swift7-2000-48f9bfb372c34e36866773b1ede0b372.jpg
-Enchanted (Taylor's Version),Speak Now (Taylor's Version),0.505,7,98.71,https://upload.wikimedia.org/wikipedia/en/5/5b/Taylor_Swift_-_Speak_Now_%28Taylor%27s_Version%29.png
-Karma,Midnights,0.647,31,54.19,https://media.pitchfork.com/photos/63495dffa7846fb4be7fe006/master/pass/Taylor-Swift-Midnights.jpg
-Lavender Haze,Midnights,0.735,34,92.15,https://media.pitchfork.com/photos/63495dffa7846fb4be7fe006/master/pass/Taylor-Swift-Midnights.jpg
-Love Story (Taylor’s Version),Fearless (Taylor's Version),0.627,129,171.71,https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png
-Lover,Lover,0.359,80,144.36,https://i.scdn.co/image/ab67616d0000b273e787cffec20aa2a396a61647
-Midnight Rain,Midnights,0.654,93,124.62,https://media.pitchfork.com/photos/63495dffa7846fb4be7fe006/master/pass/Taylor-Swift-Midnights.jpg
-Shake It Off,1989,0.647,132,154.33,https://i.scdn.co/image/ab67616d0000b273904445d70d04eb24d6bb79ac
-Style,1989,0.588,24,72.88,https://i.scdn.co/image/ab67616d0000b273904445d70d04eb24d6bb79ac
-The Man,Lover,0.777,166,182.75,https://i.scdn.co/image/ab67616d0000b273e787cffec20aa2a396a61647
-Vigilante Shit,Midnights,0.867,190,190.0,https://media.pitchfork.com/photos/63495dffa7846fb4be7fe006/master/pass/Taylor-Swift-Midnights.jpg
-You Belong With Me (Taylor’s Version),Fearless (Taylor's Version),0.632,179,179.0,https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png
-august,folklore,0.387,21,112.73,https://i.namu.wiki/i/YSjWOQ1mt5zU-NvXekLCSBNLeANWMypMUKXss3Z3vIN8vTbJiVozs2i_88grnuhYvzPbtMs2InQyTD8_9aLP3g.webp
-cardigan,folklore,0.612,47,80.69,https://i.namu.wiki/i/YSjWOQ1mt5zU-NvXekLCSBNLeANWMypMUKXss3Z3vIN8vTbJiVozs2i_88grnuhYvzPbtMs2InQyTD8_9aLP3g.webp
+name,album,danceability,peak_rank,average_rank,album_cover,weeks_on_chart
+Bejeweled,Midnights,0.695,103,139.21,https://media.pitchfork.com/photos/63495dffa7846fb4be7fe006/master/pass/Taylor-Swift-Midnights.jpg,14
+Blank Space,1989,0.76,34,76.69,https://i.scdn.co/image/ab67616d0000b273904445d70d04eb24d6bb79ac,26
+Cruel Summer,Lover,0.552,2,20.58,https://i.scdn.co/image/ab67616d0000b273e787cffec20aa2a396a61647,26
+Delicate,reputation,0.75,138,165.33,https://people.com/thmb/Il8Det7N7UvvQAojNWSQyhcnjuM=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(992x0:994x2)/taylor-swift7-2000-48f9bfb372c34e36866773b1ede0b372.jpg,3
+Don’t Blame Me,reputation,0.615,54,77.27,https://people.com/thmb/Il8Det7N7UvvQAojNWSQyhcnjuM=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(992x0:994x2)/taylor-swift7-2000-48f9bfb372c34e36866773b1ede0b372.jpg,26
+Enchanted (Taylor's Version),Speak Now (Taylor's Version),0.505,7,98.71,https://upload.wikimedia.org/wikipedia/en/5/5b/Taylor_Swift_-_Speak_Now_%28Taylor%27s_Version%29.png,14
+Karma,Midnights,0.647,31,54.19,https://media.pitchfork.com/photos/63495dffa7846fb4be7fe006/master/pass/Taylor-Swift-Midnights.jpg,26
+Love Story (Taylor’s Version),Fearless (Taylor's Version),0.627,129,171.71,https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png,3
+Lover,Lover,0.359,80,144.36,https://i.scdn.co/image/ab67616d0000b273e787cffec20aa2a396a61647,23
+Midnight Rain,Midnights,0.654,93,124.62,https://media.pitchfork.com/photos/63495dffa7846fb4be7fe006/master/pass/Taylor-Swift-Midnights.jpg,12
+Shake It Off,1989,0.647,132,154.33,https://i.scdn.co/image/ab67616d0000b273904445d70d04eb24d6bb79ac,3
+Style,1989,0.588,24,72.88,https://i.scdn.co/image/ab67616d0000b273904445d70d04eb24d6bb79ac,26
+The Man,Lover,0.777,166,182.75,https://i.scdn.co/image/ab67616d0000b273e787cffec20aa2a396a61647,3
+Vigilante Shit,Midnights,0.867,190,190.0,https://media.pitchfork.com/photos/63495dffa7846fb4be7fe006/master/pass/Taylor-Swift-Midnights.jpg,1
+You Belong With Me (Taylor’s Version),Fearless (Taylor's Version),0.632,179,179.0,https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png,1
+august,folklore,0.387,21,112.73,https://i.namu.wiki/i/YSjWOQ1mt5zU-NvXekLCSBNLeANWMypMUKXss3Z3vIN8vTbJiVozs2i_88grnuhYvzPbtMs2InQyTD8_9aLP3g.webp,22
+cardigan,folklore,0.612,47,80.69,https://i.namu.wiki/i/YSjWOQ1mt5zU-NvXekLCSBNLeANWMypMUKXss3Z3vIN8vTbJiVozs2i_88grnuhYvzPbtMs2InQyTD8_9aLP3g.webp,26
