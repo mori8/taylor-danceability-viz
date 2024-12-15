@@ -11,10 +11,10 @@ import Conclusion from './components/sections/Conclusion';
 
 export default function Home() {
   return (
-    <main className="min-h-screen overflow-hidden">
+    <main className="min-h-screen">
       <Hero />
       <motion.div 
-        className="space-y-32"
+        className="space-y-24"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}

@@ -22,7 +22,7 @@ const formatAlbumName = (name) => {
     .replace(" (deluxe version)", "");
 };
 
-export default function DanceabilityChart() {
+export default function DanceabilityChart({ highlightedIds = [] }) {
   const chartRef = useRef();
   const [data, setData] = useState(null);
 
@@ -99,7 +99,8 @@ export default function DanceabilityChart() {
     // Add Y axis
     svg.append("g")
       .call(d3.axisLeft(y)
-        .ticks(5))
+        .ticks(5)
+        .tickFormat(d => d * 100 + "%"))
       .call(g => g.select(".domain").remove())
       .call(g => g.selectAll(".tick line")
         .attr("x2", width)
@@ -111,22 +112,25 @@ export default function DanceabilityChart() {
       .y(d => y(d.danceability))
       .curve(d3.curveMonotoneX);
 
-    // Add the line path
+    // Add the line path with lowered opacity for non-highlighted sections
     const path = svg.append("path")
       .datum(data)
       .attr("fill", "none")
       .attr("stroke", "#000")
       .attr("stroke-width", 2)
+      .attr("opacity", 0.3) // Lower base opacity
       .attr("d", line);
 
-    // Animate the line
-    const length = path.node().getTotalLength();
-    path
-      .attr("stroke-dasharray", length + " " + length)
-      .attr("stroke-dashoffset", length)
-      .transition()
-      .duration(2000)
-      .attr("stroke-dashoffset", 0);
+    // Add highlighted line segments if there are highlighted points
+    if (highlightedIds.length > 1) {
+      const highlightedData = data.filter(d => highlightedIds.includes(d.id));
+      const highlightPath = svg.append("path")
+        .datum(highlightedData)
+        .attr("fill", "none")
+        .attr("stroke", "#000")
+        .attr("stroke-width", 3)
+        .attr("d", line);
+    }
 
     // Add points
     const points = svg.selectAll(".point")
@@ -136,10 +140,11 @@ export default function DanceabilityChart() {
       .attr("class", "point")
       .attr("cx", d => x(d.id))
       .attr("cy", d => y(d.danceability))
-      .attr("r", 4)
-      .attr("fill", "#000")
+      .attr("r", d => highlightedIds.includes(d.id) ? 6 : 4)
+      .attr("fill", d => highlightedIds.includes(d.id) ? "#000" : "#666")
       .attr("stroke", "#fff")
-      .attr("stroke-width", 1);
+      .attr("stroke-width", d => highlightedIds.includes(d.id) ? 2 : 1)
+      .style("transition", "all 0.3s ease");
 
     // Add tooltip
     const tooltip = d3.select(chartRef.current)
@@ -157,12 +162,13 @@ export default function DanceabilityChart() {
 
     points
       .on("mouseover", function(event, d) {
+        const isHighlighted = highlightedIds.includes(d.id);
         tooltip.transition()
           .duration(200)
           .style("opacity", .9);
         tooltip.html(`
           ${d.name}<br/>
-          Danceability: ${d.danceability}<br/>
+          Danceability: ${(d.danceability * 100).toFixed(1)}%<br/>
           Album: ${formatAlbumName(d.album)}
         `)
           .style("left", (event.pageX + 10) + "px")
@@ -171,9 +177,10 @@ export default function DanceabilityChart() {
         d3.select(this)
           .transition()
           .duration(200)
-          .attr("r", 6);
+          .attr("r", isHighlighted ? 8 : 6);
       })
-      .on("mouseout", function() {
+      .on("mouseout", function(event, d) {
+        const isHighlighted = highlightedIds.includes(d.id);
         tooltip.transition()
           .duration(500)
           .style("opacity", 0);
@@ -181,10 +188,10 @@ export default function DanceabilityChart() {
         d3.select(this)
           .transition()
           .duration(200)
-          .attr("r", 4);
+          .attr("r", isHighlighted ? 6 : 4);
       });
 
-  }, [data]);
+  }, [data, highlightedIds]); // highlightedIds를 의존성 배열에 추가
 
   if (!data) {
     return (
