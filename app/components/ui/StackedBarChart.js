@@ -67,8 +67,8 @@ export default function StackedBarChart({
               evermore: 3,
               reputation: 4,
               "Speak Now": 5,
-              folklore: 6,
-              Red: 7,
+              Red: 6,
+              folklore: 7,
               1989: 8,
               Midnights: 9,
             };

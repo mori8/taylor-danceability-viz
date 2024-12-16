@@ -13,8 +13,8 @@ const eraGenres = [
   { title: "evermore", genre: "Alternative/Folk" },
   { title: "reputation", genre: "Pop/Electronic" },
   { title: "Speak Now", genre: "Country" },
-  { title: "folklore", genre: "Alternative/Folk" },
   { title: "Red", genre: "Country/Pop" },
+  { title: "folklore", genre: "Alternative/Folk" },
   { title: "1989", genre: "Pop" },
   { title: "Midnights", genre: "Pop/Electronic" },
 ];
@@ -78,7 +78,7 @@ export default function EraAnalysis() {
   }
 
   return (
-    <div ref={containerRef} className="relative">
+    <div ref={containerRef} className="relative pt-20">
       <div className="w-full mx-auto p-8 flex flex-col items-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

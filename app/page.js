@@ -6,7 +6,6 @@ import Introduction from "./components/sections/Introduction";
 import CoreQuestion from "./components/sections/CoreQuestion";
 import SetlistAnalysis from "./components/sections/SetlistAnalysis";
 import EraAnalysis from "./components/sections/EraAnalysis";
-import TrackAnalysis from "./components/sections/TrackAnalysis";
 import Conclusion from "./components/sections/Conclusion";
 
 export default function Home() {
@@ -23,7 +22,6 @@ export default function Home() {
         <CoreQuestion />
         <EraAnalysis />
         <SetlistAnalysis />
-        <TrackAnalysis />
         <Conclusion />
       </motion.div>
     </main>

@@ -45,7 +45,7 @@ export default function DanceabilityChart({ highlightedIds = [] }) {
     // Clear previous chart
     d3.select(chartRef.current).selectAll("*").remove();
 
-    const margin = { top: 40, right: 30, bottom: 40, left: 60 };
+    const margin = { top: 20, right: 30, bottom: 10, left: 60 };
     const containerWidth = window.innerWidth;
     const width = containerWidth - margin.left - margin.right;
     const height = 600 - margin.top - margin.bottom;
@@ -78,7 +78,7 @@ export default function DanceabilityChart({ highlightedIds = [] }) {
           .attr("width", x(i + 0.5) - x(startX))
           .attr("height", height)
           .attr("fill", albumColors[currentAlbum])
-          .attr("opacity", 0.3);
+          .attr("opacity", 0.6);
 
         svg.append("text")
           .attr("x", x(startX + (i - startX) / 2) + 8)
