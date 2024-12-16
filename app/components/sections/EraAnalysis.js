@@ -1,224 +1,159 @@
 // components/sections/EraAnalysis.js
-'use client';
-import { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import * as d3 from 'd3';
+"use client";
+import { useEffect, useState, useRef } from "react";
+import { motion } from "framer-motion";
+import * as d3 from "d3";
+import Image from "next/image";
+import DanceabilityBarChart from "../ui/DanceabilityBarChart";
+import StackedBarChart from "../ui/StackedBarChart";
 
-// Mock data - replace with real data later
-const eraData = [
-  { era: "Fearless", avgDanceability: 0.45, genre: "Country", concertOrder: 2 },
-  { era: "Speak Now", avgDanceability: 0.48, genre: "Country/Pop", concertOrder: 3 },
-  { era: "Red", avgDanceability: 0.52, genre: "Pop/Rock", concertOrder: 4 },
-  { era: "1989", avgDanceability: 0.70, genre: "Pop", concertOrder: 5 },
-  { era: "Reputation", avgDanceability: 0.65, genre: "Pop", concertOrder: 6 },
-  { era: "Lover", avgDanceability: 0.68, genre: "Pop", concertOrder: 1 },
-  { era: "folklore", avgDanceability: 0.42, genre: "Alternative", concertOrder: 7 },
-  { era: "evermore", avgDanceability: 0.40, genre: "Alternative", concertOrder: 8 },
-  { era: "Midnights", avgDanceability: 0.65, genre: "Pop", concertOrder: 9 }
+const eraGenres = [
+  { title: "Lover", genre: "Pop" },
+  { title: "Fearless", genre: "Country" },
+  { title: "evermore", genre: "Alternative/Folk" },
+  { title: "reputation", genre: "Pop/Electronic" },
+  { title: "Speak Now", genre: "Country" },
+  { title: "folklore", genre: "Alternative/Folk" },
+  { title: "Red", genre: "Country/Pop" },
+  { title: "1989", genre: "Pop" },
+  { title: "Midnights", genre: "Pop/Electronic" },
 ];
 
 export default function EraAnalysis() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1
-  });
-
-  const barChartRef = useRef();
-  const timelineRef = useRef();
+  const [data, setData] = useState(null);
+  const [currentSection, setCurrentSection] = useState(0);
+  const containerRef = useRef(null);
 
   useEffect(() => {
-    if (!barChartRef.current || !inView) return;
+    const handleScroll = () => {
+      if (!containerRef.current) return;
 
-    // Bar Chart
-    const margin = { top: 40, right: 30, bottom: 60, left: 120 };
-    const width = 800 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const containerTop = containerRect.top;
+      const viewportHeight = window.innerHeight;
 
-    // Clear previous chart
-    d3.select(barChartRef.current).selectAll("*").remove();
+      // Calculate progress based on container position
+      if (containerTop <= 0) {
+        const progress = Math.abs(containerTop) / viewportHeight;
+        const newSection = progress >= 0.5 ? 1 : 0;
 
-    const svg = d3.select(barChartRef.current)
-      .append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", `translate(${margin.left},${margin.top})`);
+        if (newSection !== currentSection) {
+          setCurrentSection(newSection);
+        }
+      }
+    };
 
-    // Create scales
-    const x = d3.scaleLinear()
-      .domain([0, 1])
-      .range([0, width]);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [currentSection]);
 
-    const y = d3.scaleBand()
-      .domain(eraData.map(d => d.era))
-      .range([0, height])
-      .padding(0.2);
+  useEffect(() => {
+    d3.csv("/taylor_full_songs.csv").then((rawData) => {
+      // Process data and calculate averages
+      const processedData = rawData.map((d) => ({
+        ...d,
+        danceability: +d.danceability,
+      }));
 
-    // Add axes
-    svg.append("g")
-      .attr("transform", `translate(0,${height})`)
-      .call(d3.axisBottom(x).ticks(5).tickFormat(d => d * 100 + "%"));
+      const totalAverage = d3.mean(processedData, (d) => d.danceability);
 
-    svg.append("g")
-      .call(d3.axisLeft(y));
+      const albumStats = d3.group(processedData, (d) => d.album);
+      const finalData = Array.from(albumStats, ([album, songs]) => {
+        const aboveAverage = songs.filter(
+          (s) => s.danceability > totalAverage
+        ).length;
+        return {
+          album,
+          aboveAverage,
+          belowAverage: songs.length - aboveAverage,
+        };
+      });
 
-    // Add bars
-    const bars = svg.selectAll(".bar")
-      .data(eraData)
-      .enter()
-      .append("rect")
-      .attr("class", "bar")
-      .attr("y", d => y(d.era))
-      .attr("height", y.bandwidth())
-      .attr("x", 0)
-      .attr("fill", d => d.genre === "Pop" ? "#c06c84" : "#b392ac")
-      .attr("opacity", 0.8);
+      setData(finalData);
+    });
+  }, []);
 
-    // Animate bars
-    bars.transition()
-      .duration(1000)
-      .delay((d, i) => i * 100)
-      .attr("width", d => x(d.avgDanceability));
-
-    // Add labels
-    svg.selectAll(".label")
-      .data(eraData)
-      .enter()
-      .append("text")
-      .attr("class", "label")
-      .attr("x", d => x(d.avgDanceability) + 5)
-      .attr("y", d => y(d.era) + y.bandwidth() / 2)
-      .attr("dy", "0.35em")
-      .text(d => (d.avgDanceability * 100).toFixed(0) + "%")
-      .attr("fill", "currentColor")
-      .attr("opacity", 0)
-      .transition()
-      .duration(1000)
-      .delay((d, i) => i * 100 + 500)
-      .attr("opacity", 1);
-
-    // Timeline visualization
-    const timelineSvg = d3.select(timelineRef.current)
-      .append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", 100)
-      .append("g")
-      .attr("transform", `translate(${margin.left},20)`);
-
-    const timelineX = d3.scaleLinear()
-      .domain([1, 9])
-      .range([0, width]);
-
-    const sortedByOrder = [...eraData].sort((a, b) => a.concertOrder - b.concertOrder);
-
-    // Add timeline points
-    const timelinePoints = timelineSvg.selectAll(".timeline-point")
-      .data(sortedByOrder)
-      .enter()
-      .append("g")
-      .attr("class", "timeline-point")
-      .attr("transform", d => `translate(${timelineX(d.concertOrder)},0)`);
-
-    timelinePoints.append("circle")
-      .attr("r", 6)
-      .attr("fill", d => d.genre === "Pop" ? "#c06c84" : "#b392ac");
-
-    timelinePoints.append("text")
-      .attr("y", 20)
-      .attr("text-anchor", "middle")
-      .attr("fill", "currentColor")
-      .attr("font-size", "12px")
-      .text(d => d.era);
-
-    // Add connecting lines
-    timelineSvg.selectAll(".timeline-line")
-      .data(sortedByOrder.slice(0, -1))
-      .enter()
-      .append("line")
-      .attr("x1", d => timelineX(d.concertOrder))
-      .attr("x2", (d, i) => timelineX(sortedByOrder[i + 1].concertOrder))
-      .attr("y1", 0)
-      .attr("y2", 0)
-      .attr("stroke", "#666")
-      .attr("stroke-width", 2)
-      .attr("stroke-dasharray", "4,4");
-
-  }, [inView]);
+  if (!data) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <section ref={ref} className="space-y-16">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8 }}
-        className="space-y-8"
-      >
-        <h2 className="text-3xl md:text-4xl font-display text-tertiary">
-          Harnessing Genre Shifts for Emotional Peaks
-        </h2>
-        
-        <p className="text-lg text-secondary/80 leading-relaxed">
-          Each Taylor Swift era brings its own unique sound and energy level. The careful 
-          arrangement of these eras in concert, particularly the strategic placement of 
-          high-danceability pop eras toward the end, helps create a powerful crescendo 
-          effect.
-        </p>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="bg-secondary/5 rounded-lg p-8"
-      >
-        <h3 className="text-xl font-semibold mb-6 text-center text-secondary/80">
-          Average Danceability by Era
-        </h3>
-        <div ref={barChartRef} className="w-full overflow-x-auto" />
-        <p className="text-sm text-secondary/60 mt-4 text-center">
-          Pop eras (shown in pink) generally feature higher danceability scores
-        </p>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8, delay: 0.4 }}
-        className="bg-secondary/5 rounded-lg p-8"
-      >
-        <h3 className="text-xl font-semibold mb-6 text-center text-secondary/80">
-          Concert Order Timeline
-        </h3>
-        <div ref={timelineRef} className="w-full overflow-x-auto" />
-        <p className="text-sm text-secondary/60 mt-4 text-center">
-          Note the strategic placement of high-danceability eras toward the end
-        </p>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8, delay: 0.6 }}
-        className="grid grid-cols-1 md:grid-cols-2 gap-8"
-      >
-        <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-accent">Early Eras</h3>
-          <p className="text-secondary/80 leading-relaxed">
-            Country and folk-influenced eras feature lower danceability scores, 
-            allowing for deep emotional connection through complex melodies and 
-            storytelling.
+    <div ref={containerRef} className="relative">
+      <div className="w-full mx-auto p-8 flex flex-col items-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-12 flex flex-row gap-6"
+        >
+          <h2 className="text-3xl md:text-4xl font-display text-primary text-left flex-1">
+            How Taylor Swift weaves genre and danceability into a three-hour
+            narrative is key to sustaining audience engagement.
+          </h2>
+          <p className="text-base text-obsidian/80 leading-relaxed text-left flex-1">
+            In terms of danceability, let's examine how Taylor maintains tension
+            in The Eras Tour. From country to pop, each era embodies its own
+            danceability profile, creating a varied tour experience. The
+            danceability of each album reflects its aesthetic—some focus on
+            poetic lyrics and dramatic melodies (low danceability), while others
+            emphasize catchy beats (high danceability). The bar chart below
+            shows the percentage of above and below average danceability songs
+            from each album, based on the average danceability of all of Taylor
+            Swift's songs, and these eras are placed in order on the setlist for
+            The Eras Tour.
           </p>
-        </div>
-        <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-accent">Later Eras</h3>
-          <p className="text-secondary/80 leading-relaxed">
-            Pop-centric eras with higher danceability are strategically placed 
-            later in the show, building toward an energetic finale that keeps 
-            the audience engaged.
+          <p className="text-base text-obsidian/80 leading-relaxed text-left flex-1">
+            In the mid-section of the show, she selects eras with lower
+            danceability, encouraging fans to focus more deeply on her
+            storytelling and lyrical nuance. To ensure the audience doesn’t
+            become overwhelmed, she strategically inserts <i>Reputation</i>—the
+            era with some of the highest danceability—between emotionally dense
+            periods like <i>evermore</i> and <i>Speak Now</i>, offering a
+            momentary breath of fresh air. As the performance builds toward its
+            conclusion, she lines up a sequence of high-danceability eras—
+            <i>1989</i> <i>and Midnights</i>—creating a climactic surge of
+            energy.
           </p>
-        </div>
-      </motion.div>
-    </section>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="space-y-2 mb-2"
+        >
+          <div className="px-3">
+            <Image
+              src="/era-ordered.png"
+              alt="Taylor Swift Eras"
+              width={1920}
+              height={400}
+            />
+          </div>
+          <div className="w-full flex px-3">
+            {eraGenres.map((era) => (
+              <div className="flex-1 text-center" key={era.title}>
+                <h3 className="text-lg font-semibold font-display">
+                  {era.title}
+                </h3>
+                <p className="text-sm text-secondary">{era.genre}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.8,
+            ease: "easeOut",
+          }}
+          className="w-full mt-2"
+        >
+          <StackedBarChart data={data} ordering="tour" />
+        </motion.div>
+      </div>
+    </div>
   );
 }
