@@ -1,79 +1,51 @@
 // components/sections/Conclusion.js
-'use client';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
+"use client";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import Image from "next/image";
 
 export default function Conclusion() {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1
+    threshold: 0.1,
   });
 
   return (
-    <section ref={ref} className="space-y-16 pb-32">
+    <section ref={ref} className="space-y-16 pb-32 relative h-screen">
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/confetti.png"
+          alt="Hero background"
+          fill
+          priority
+          className="object-cover z-0"
+          sizes="100vw"
+          quality={90}
+        />
+      </div>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}
-        className="space-y-8"
+        className="space-y-12 max-w-5xl mx-auto"
       >
-        <h2 className="text-3xl md:text-4xl font-display text-tertiary">
-          Choreographing an Emotional Journey Through Predictable Beats
+        <p className="text-base text-obsidian/80 leading-relaxed">
+          In the end, Taylor Swift employs danceability as more than just a
+          measure of a track’s dance-friendliness. Instead, it becomes a
+          foundational tool for shaping the emotional contour of a lengthy
+          concert. By understanding the genre-driven differences between eras,
+          the emotional patterns of specific tracks (especially the iconic fifth
+          track), and how these elements intertwine in the setlist, one can see
+          how a three-hour show remains consistently engaging. Low-danceability
+          songs present challenging emotional depths, while high-danceability
+          moments provide predictable rhythms and a light, refreshing mood.
+          Swift’s careful curation of era transitions and track arrangements
+          ensures that the audience never feels lost or weary.
+        </p>
+        <h2 className="text-3xl md:text-4xl font-display text-primary pr-20">
+          Danceability emerges as the key to maintaining tension, excitement,
+          and immersion throughout a long, narrative-rich live performance.
         </h2>
-        
-        <p className="text-xl text-secondary/80 leading-relaxed">
-          Throughout The Eras Tour, danceability emerges as more than just a measure 
-          of how "danceable" a song is—it's a sophisticated tool for emotional 
-          pacing and audience engagement.
-        </p>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-8"
-      >
-        <div className="bg-secondary/5 p-8 rounded-lg">
-          <h3 className="text-xl font-semibold text-accent mb-4">Strategic Waves</h3>
-          <p className="text-secondary/80 leading-relaxed">
-            The alternation between low and high danceability creates rhythmic waves 
-            that help maintain audience energy throughout the three-hour performance.
-          </p>
-        </div>
-        
-        <div className="bg-secondary/5 p-8 rounded-lg">
-          <h3 className="text-xl font-semibold text-accent mb-4">Era Progression</h3>
-          <p className="text-secondary/80 leading-relaxed">
-            The careful arrangement of eras, culminating in high-danceability pop 
-            segments, builds toward a natural and energetic finale.
-          </p>
-        </div>
-        
-        <div className="bg-secondary/5 p-8 rounded-lg">
-          <h3 className="text-xl font-semibold text-accent mb-4">Track Placement</h3>
-          <p className="text-secondary/80 leading-relaxed">
-            Strategic positioning of tracks, especially the iconic Track 5s, creates 
-            emotional peaks and valleys that keep the audience engaged.
-          </p>
-        </div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8, delay: 0.4 }}
-        className="bg-tertiary/10 p-8 rounded-lg text-center"
-      >
-        <p className="text-xl font-display text-tertiary mb-4">
-          The Final Note
-        </p>
-        <p className="text-lg text-secondary/80 leading-relaxed max-w-3xl mx-auto">
-          Through this careful orchestration of danceability, Taylor Swift transforms 
-          what could be an exhausting marathon into a masterfully paced journey. 
-          Each song's placement, each era's sequence, contributes to a larger 
-          narrative that keeps audiences captivated from the first note to the last.
-        </p>
       </motion.div>
 
       <motion.div
@@ -83,7 +55,8 @@ export default function Conclusion() {
         className="text-center pt-16"
       >
         <p className="text-sm text-secondary/60">
-          Analysis and Visualization by [Your Name]<br/>
+          Analysis and Visualization by Sooyohn Nam
+          <br />
           Data sourced from Spotify API
         </p>
       </motion.div>
