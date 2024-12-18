@@ -14,7 +14,7 @@ export default function Conclusion() {
     <section ref={ref} className="space-y-16 pb-32 relative h-screen">
       <div className="absolute inset-0 z-0">
         <Image
-          src="/confetti.png"
+          src="/confetti-taylor.png"
           alt="Hero background"
           fill
           priority
