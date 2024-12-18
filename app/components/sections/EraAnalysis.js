@@ -4,7 +4,6 @@ import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import * as d3 from "d3";
 import Image from "next/image";
-import DanceabilityBarChart from "../ui/DanceabilityBarChart";
 import StackedBarChart from "../ui/StackedBarChart";
 
 const eraGenres = [
@@ -91,7 +90,7 @@ export default function EraAnalysis() {
             narrative is key to sustaining audience engagement.
           </h2>
           <p className="text-base text-obsidian/80 leading-relaxed text-left flex-1">
-            In terms of danceability, let's examine how Taylor maintains tension
+            In terms of danceability, let&apos;s examine how Taylor maintains tension
             in The Eras Tour. From country to pop, each era embodies its own
             danceability profile, creating a varied tour experience. The
             danceability of each album reflects its aesthetic—some focus on
@@ -99,7 +98,7 @@ export default function EraAnalysis() {
             emphasize catchy beats (high danceability). The bar chart below
             shows the percentage of above and below average danceability songs
             from each album, based on the average danceability of all of Taylor
-            Swift's songs, and these eras are placed in order on the setlist for
+            Swift&apos;s songs, and these eras are placed in order on the setlist for
             The Eras Tour.
           </p>
           <p className="text-base text-obsidian/80 leading-relaxed text-left flex-1">

@@ -44,7 +44,7 @@ export default function Introduction() {
         className="space-y-6 mx-auto max-w-4xl"
       >
         <h3 className="text-2xl font-semibold font-display px-6 text-center text-primary">
-        "Would the audience's engagement and energy be maintained throughout a three-plus hour show with only these 'low danceability' songs?"
+        &quot;Would the audience&apos;s engagement and energy be maintained throughout a three-plus hour show with only these &apos;low danceability&apos; songs?&quot;
         </h3>
       </motion.div>
 
