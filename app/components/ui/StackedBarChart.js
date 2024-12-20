@@ -110,7 +110,7 @@ export default function StackedBarChart({
     const color = d3
       .scaleOrdinal()
       .domain(["Above Average", "Below Average"])
-      .range(["#7c0403", "#dbbdab"]);
+      .range(["#db3e1d", "#dbbdab"]);
 
     // Create bars
     const bars = svg
